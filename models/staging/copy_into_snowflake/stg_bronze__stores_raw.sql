@@ -9,9 +9,9 @@ source as (
 renamed as (
 
     select
-        store as store_id,
+        store AS store_id,
         type AS store_type,
-        size,
+        size AS store_size,
         current_timestamp as insert_dts
 
     from source
