@@ -1,0 +1,7 @@
+version: 2
+sources:
+    - name: source
+      database: WALMART_DB
+      schema: SILVER
+      tables:
+        - name: fact_transform
