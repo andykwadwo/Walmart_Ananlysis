@@ -1,6 +1,7 @@
 {{
     config(
         materialized='incremental',
+        schema="SILVER",
         incremental_strategy = 'delete + insert',
         unique_key='store_id'
     )
