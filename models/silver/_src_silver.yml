@@ -2,6 +2,6 @@ version: 2
 sources:
     - name: source
       database: WALMART_DB
-      schema: SILVER
+      schema: BRONZE_SILVER
       tables:
         - name: fact_transform

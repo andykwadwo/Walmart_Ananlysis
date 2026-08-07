@@ -2,8 +2,8 @@
     config(
         materialized='incremental',
         schema="SILVER",
-        incremental_strategy = 'delete + insert',
-        unique_key='store_id'
+        incremental_strategy = 'delete+insert',
+        unique_key='date_id'
     )
 }}
 
@@ -17,7 +17,7 @@ department AS (
 
 final AS (
     SELECT
-        to_char(department.order_date, 'MMDDYYYY')::int as date_id,
+        (EXTRACT(DAY, department.date) + EXTRACT(MONTH, department.date) + EXTRACT(YEAR, department.date)) AS  date_id,
         department.date AS Store_Date,
         department.isHoliday,
         department.insert_dts AS insert_date,
