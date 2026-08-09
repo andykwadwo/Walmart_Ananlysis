@@ -10,6 +10,10 @@ WITH department AS (
     SELECT * FROM {{ ref('stg_bronze__department_raw') }}
 ),
 
+store AS (
+    SELECT * FROM {{ ref('stg_bronze__stores_raw') }}
+),
+
 fact AS (
     SELECT * FROM {{ ref('stg_bronze__fact_raw') }}
 ),
@@ -18,6 +22,8 @@ final AS (
     SELECT
         department.store_id,
         department.dept_id,
+        (EXTRACT(DAY, department.date) + EXTRACT(MONTH, department.date) + EXTRACT(YEAR, department.date)) AS  date_id,
+        store.store_size,
         department.weekly_sales,
         fact.fuel_price,
         fact.store_temperature,
@@ -37,6 +43,10 @@ final AS (
         fact
     ON
         department.store_id = fact.store_id
+    JOIN
+        store
+    ON
+        department.store_id = store.store_id
 )
 
 SELECT * FROM final
